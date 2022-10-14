@@ -12,3 +12,17 @@
 
 //basic randome board placement function
 // pixels[Math.floor(Math.random()*900)]
+
+
+
+//collision detection(walls)
+//CD = "current div", the div at snake[0]
+
+//top
+//if CD is < widthInterval && direction is -widthInterval
+
+//bottom if CD is > (widthInterval * widthInterval) - widthInterval && direction is widthInterval
+
+//left if (CD % width interval === 0) && direction is - 1
+
+//right if (CD +1) % widthInterval === 0 && direction is 1

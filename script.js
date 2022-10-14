@@ -38,6 +38,7 @@ let direction = 1
 
 //move function
 const moveFunction = () => {
+    collisionDetector()
     snake.unshift(snake[0] + direction)
     while (snake.length > snakeSize) {
     snake.pop()}
@@ -100,11 +101,30 @@ document.addEventListener(`keydown`, function(event) {
 //add new div to front of snake
 //remove old div from end of snake
 
-//collision detection
 
 
+//collision detection(walls)
+const collisionDetector = () => {
+//CD = "current div", the div at snake[0]
 
-
+//top
+//if CD is < widthInterval && direction is -widthInterval
+if (snake[0] < widthInterval && direction === -widthInterval) {
+    console.log(`wall hit top`)
+}
+//bottom if CD is > (widthInterval * widthInterval) - widthInterval && direction is widthInterval
+if (snake[0] > ((widthInterval * widthInterval) - widthInterval) && direction === widthInterval) {
+    console.log(`wall hit bottom`)
+}
+//left if (CD % width interval === 0) && direction is - 1
+if (snake[0] % widthInterval === 0 && direction === -1) {
+    console.log(`wall hit left`)
+}
+//right if (CD +1) % widthInterval === 0 && direction is 1
+if ((snake[0]+1) % widthInterval === 0 && direction === 1) {
+    console.log(`wall hit right`)
+}
 
 // setInterval(moveFunction, 1000)
 
+}

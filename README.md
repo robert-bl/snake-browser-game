@@ -11,8 +11,8 @@ MVP Parameters:
 - Randomized food placement
 - Collision detection for both the snake and edges of the play area
 - Scoring system and functional score board
-- game can be reset after play
-- ![Basic Layout](https://wireframe.cc/6RoapL)
+- Game can be reset after play
+- Basic Layout: https://wireframe.cc/6RoapL
 
 Stretch parameters:
 - Increased difficulty as the game prgresses

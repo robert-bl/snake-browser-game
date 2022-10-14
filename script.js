@@ -37,11 +37,15 @@ snakeDesignation()
 let direction = 1
 
 //move function
+//determine which div the snake will move into
+//determine collision (snake/wall/food)
+//add new div to front of snake
+//remove old div from end of snake
 const moveFunction = () => {
     collisionDetector()
     snake.unshift(snake[0] + direction)
-    while (snake.length > snakeSize) {
-    snake.pop()}
+    while (snake.length > snakeSize) {snake.pop()}
+    snakeDesignation()
     console.log(`snake is divs ${snake}`)
 }
 
@@ -49,82 +53,78 @@ const moveFunction = () => {
 
 
 
-
+//keystroke detection
+//need to change double-back prevention
 document.addEventListener(`keydown`, function(event) {
     console.log(event.keyCode)
     switch (event.keyCode) {
         case 37 :
             console.log(`left`)
-            if (direction !== 1) {direction = -1}
+            if (snake[1] !== snake[0] - 1) {direction = -1}
         break
         case 38 :
             console.log(`up`)
-            if (direction !== widthInterval) {direction = -widthInterval}
+            if (snake[1] !== snake[0] - widthInterval) {direction = -widthInterval}
         break
         case 39 :
             console.log(`right`)
-            if (direction !== -1) {direction = 1}
+            if (snake[1] !== snake[0] + 1) {direction = 1}
         break
         case 40 :
             console.log(`down`)
-            if (direction !== -widthInterval) {direction = widthInterval}
+            if (snake[1] !== snake[0] + widthInterval) {direction = widthInterval}
         break
         case 87 :
             console.log(`up`)
-            if (direction !== widthInterval) {direction = -widthInterval}
+            if (snake[1] !== snake[0] - widthInterval) {direction = -widthInterval}
         break
         case 65 :
             console.log(`left`)
-            if (direction !== 1) {direction = -1}
+            if (snake[1] !== snake[0] - 1) {direction = -1}
         break
         case 83 :
             console.log(`down`)
-            if (direction !== -widthInterval) {direction = widthInterval}
+            if (snake[1] !== snake[0] + widthInterval) {direction = widthInterval}
         break
         case 68 :
             console.log(`right`)
-            if (direction !== -1) {direction = 1}
+            if (snake[1] !== snake[0] + 1) {direction = 1}
         break
         case 32 :
             moveFunction()
         break
 
     }
-    snakeDesignation()
+
 })
 
 
 
-//movement
-//determine which div the snake will move into
-//determine collision (snake/wall/food)
-//add new div to front of snake
-//remove old div from end of snake
+
 
 
 
 //collision detection(walls)
 const collisionDetector = () => {
-//CD = "current div", the div at snake[0]
-
-//top
-//if CD is < widthInterval && direction is -widthInterval
-if (snake[0] < widthInterval && direction === -widthInterval) {
-    console.log(`wall hit top`)
+//top hit
+    if (snake[0] < widthInterval && direction === -widthInterval) {
+        console.log(`wall hit top`)
+    }
+//bottom hit
+    if (snake[0] > ((widthInterval * widthInterval) - widthInterval) && direction === widthInterval) {
+        console.log(`wall hit bottom`)
+    }
+//left hit
+    if (snake[0] % widthInterval === 0 && direction === -1) {
+        console.log(`wall hit left`)
+    }
+//right hit
+    if ((snake[0]+1) % widthInterval === 0 && direction === 1) {
+        console.log(`wall hit right`)
+    }
+//snake hit
+    if ((pixels[snake[0] + direction].classList.contains(`snake`))) {
+        console.log(`snake hit`)
+    }
 }
-//bottom if CD is > (widthInterval * widthInterval) - widthInterval && direction is widthInterval
-if (snake[0] > ((widthInterval * widthInterval) - widthInterval) && direction === widthInterval) {
-    console.log(`wall hit bottom`)
-}
-//left if (CD % width interval === 0) && direction is - 1
-if (snake[0] % widthInterval === 0 && direction === -1) {
-    console.log(`wall hit left`)
-}
-//right if (CD +1) % widthInterval === 0 && direction is 1
-if ((snake[0]+1) % widthInterval === 0 && direction === 1) {
-    console.log(`wall hit right`)
-}
-
-// setInterval(moveFunction, 1000)
-
-}
+// setInterval(moveFunction, 200)

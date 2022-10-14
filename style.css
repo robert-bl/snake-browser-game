@@ -13,6 +13,12 @@ body {
 div {
     height: 30px;
     width: 30px;
-    border: 1px solid black;
+    border: 1px dotted whitesmoke;
     box-sizing: border-box;
+    background-color: white;
+}
+
+
+.snake {
+    background-color: black;
 }

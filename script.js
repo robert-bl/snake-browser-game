@@ -6,21 +6,18 @@ let board = document.querySelector(`#board`)
 
 for (let i = 0; i < 900; i++) {
     let pixel = document.createElement(`div`)
+    pixel.classList.add(`pixel`)
     board.appendChild(pixel)
 }
-let pixels = document.querySelectorAll(`div`)
+let pixels = document.querySelectorAll(`.pixel`)
 
 //width variable used for determining vertical movement/collision
 let widthInterval = 30
 
 
-//snake is an array of occupide divs
-//divs in snake array should have "snake" class
-//divs with snake class should have background-color black
-//divs without 
-
 let snake = [80]
-let snakeSize = 3
+let snakeSize = 7
+
 
 const snakeDesignation = () => {
     for (let i = 0; i < pixels.length; i++) {
@@ -34,6 +31,18 @@ const snakeDesignation = () => {
 
 snakeDesignation()
 
+
+const dropApple = () => {
+    let validDrops = []
+    for (let i = 0; i < pixels.length; i++) {
+        if (pixels[i].classList.contains(`snake`) === false) {
+        validDrops.push(i)
+        }
+    }
+    pixels[validDrops[Math.floor((Math.random() * validDrops.length))]].classList.add(`apple`)
+}
+
+dropApple()
 let direction = 1
 
 //move function
@@ -126,5 +135,14 @@ const collisionDetector = () => {
     if ((pixels[snake[0] + direction].classList.contains(`snake`))) {
         console.log(`snake hit`)
     }
+//apple hit
+    if ((pixels[snake[0] + direction].classList.contains(`apple`))) {
+        pixels[snake[0] + direction].classList.remove(`apple`)
+        //give points
+        console.log(`10 points!`)
+        snakeSize += 2
+        dropApple()
+    }
 }
-// setInterval(moveFunction, 200)
+// setInterval(moveFunction, 150)
+

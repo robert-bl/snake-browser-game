@@ -3,17 +3,17 @@ body {
 }
 
 #board {
-    height: 900px;
-    width: 900px;
+    height: 750px;
+    width: 750px;
     border: 1px solid black;
     display: flex;
     flex-wrap: wrap;
 }
 
-div {
-    height: 30px;
-    width: 30px;
-    border: 1px dotted whitesmoke;
+.pixel {
+    height: 25px;
+    width: 25px;
+    border: 1px dotted black;
     box-sizing: border-box;
     background-color: white;
 }
@@ -21,4 +21,8 @@ div {
 
 .snake {
     background-color: black;
+}
+
+.apple {
+    background-color: red;
 }

@@ -26,3 +26,19 @@
 //left if (CD % width interval === 0) && direction is - 1
 
 //right if (CD +1) % widthInterval === 0 && direction is 1
+
+
+//apple placement
+//randomly assign position in pixels that are not class of snake
+
+
+
+const dropApple = () => {
+    let validDrops = []
+    for (let i = 0; i < pixels.length; i++) {
+        if (pixels[i].classList.includes(`snake`) === false) {
+        validDrops.push(i)
+        }
+    }
+    pixel[validDrops[Math.floor(Math.random()*validDrops.lengh)]].classList.add(`apple`)
+}

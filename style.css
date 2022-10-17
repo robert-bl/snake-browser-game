@@ -23,6 +23,11 @@ body {
     background-color: black;
 }
 
+.deadSnake {
+    background-color: red;
+    border-color: red;
+}
+
 .apple {
     background-color: red;
 }

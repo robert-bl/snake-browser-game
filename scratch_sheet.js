@@ -51,3 +51,18 @@
 //start/reset button
 //starts running move command on a loop (does existing function already create a loop?)
 //resets - snake length, snake starting position, score, apple placement (reset all classes except pixels?)
+
+
+
+
+
+
+//interval test
+
+
+const logger = () => {
+    console.log(`hit`)
+}
+
+let hitter = setInterval(logger, 500)
+clearInterval(hitter)

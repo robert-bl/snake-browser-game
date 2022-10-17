@@ -1,10 +1,11 @@
 
 let board = document.querySelector(`#board`)
 let scoreBoard = document.querySelector(`#score`)
-let moveInterval = 150
 let playButton = document.querySelector(`#play`)
+let snakePixels = document.querySelectorAll(`.snake`)
 let gameActive = false
-
+let resetButton = document.querySelector(`#reset`)
+let moveInterval = 150
 
 //generate board
 
@@ -18,15 +19,14 @@ let pixels = document.querySelectorAll(`.pixel`)
 //width variable used for determining vertical movement/collision
 let widthInterval = 30
 
+//define score and scoreboard
 let score = 0
 scoreBoard.innerText = `Points: ${score}`
 
-//starting snake
+//set starting snake
 let snake = [435,434]
 let snakeSize = 7
-
-
-
+let direction = 1
 
 const snakeDesignation = () => {
     for (let i = 0; i < pixels.length; i++) {
@@ -41,6 +41,7 @@ const snakeDesignation = () => {
 snakeDesignation()
 
 
+
 const dropApple = () => {
     let validDrops = []
     for (let i = 0; i < pixels.length; i++) {
@@ -52,14 +53,11 @@ const dropApple = () => {
 }
 
 dropApple()
-let direction = 1
+
 
 //move function
-//determine which div the snake will move into
-//determine collision (snake/wall/food)
-//add new div to front of snake
-//remove old div from end of snake
 const moveFunction = () => {
+    console.log(`mvFun`)
     if (gameActive === true) {
         collisionDetector()
     }
@@ -67,7 +65,7 @@ const moveFunction = () => {
         snake.unshift(snake[0] + direction)
         while (snake.length > snakeSize) {snake.pop()}
         snakeDesignation()
-        console.log(`snake is divs ${snake}`)
+        // console.log(`snake is divs ${snake}`)
     }
 }
 
@@ -75,9 +73,10 @@ const moveFunction = () => {
 
 
 
+
 //keystroke detection
-//need to change double-back prevention
 document.addEventListener(`keydown`, function(event) {
+    if (gameActive === true) {
     console.log(event.keyCode)
     switch (event.keyCode) {
         case 37 :
@@ -116,13 +115,8 @@ document.addEventListener(`keydown`, function(event) {
             moveFunction()
         break
     }
-
+}
 })
-
-
-
-
-
 
 
 //collision detection(walls)
@@ -130,27 +124,37 @@ const collisionDetector = () => {
 //top hit
     if (snake[0] < widthInterval && direction === -widthInterval) {
         console.log(`wall hit top`)
-        gameActive = false
+        // killSnake()
+        clearInterval(timedMovement)
+        return gameActive = false
     }
 //bottom hit
     if (snake[0] > ((widthInterval * widthInterval) - widthInterval) && direction === widthInterval) {
         console.log(`wall hit bottom`)
-        gameActive = false
+        // killSnake()
+        clearInterval(timedMovement)
+        return gameActive = false
     }
 //left hit
     if (snake[0] % widthInterval === 0 && direction === -1) {
         console.log(`wall hit left`)
-        gameActive = false
+        // killSnake()
+        clearInterval(timedMovement)
+        return gameActive = false
     }
 //right hit
     if ((snake[0]+1) % widthInterval === 0 && direction === 1) {
         console.log(`wall hit right`)
-        gameActive = false
+        // killSnake()
+        clearInterval(timedMovement)
+        return gameActive = false
     }
 //snake hit
     if ((pixels[snake[0] + direction].classList.contains(`snake`))) {
         console.log(`snake hit`)
-        gameActive = false
+        // killSnake()
+        clearInterval(timedMovement)
+        return gameActive = false
     }
 //apple hit
     if ((pixels[snake[0] + direction].classList.contains(`apple`))) {
@@ -164,15 +168,29 @@ const collisionDetector = () => {
     }
 }
 
+
+
+
+let timedMovement = setInterval(moveFunction, moveInterval)
+clearInterval(timedMovement)
+
+const runGame = () => {
+    timedMovement = setInterval(moveFunction, moveInterval)
+}
+
 playButton.addEventListener(`click`, () => {
     gameActive = true
-    clearInterval(moveInterval)
-    moveInterval = 150
     runGame()
 })
 
-const runGame = () => {
-    if (gameActive === true) {
-        return setInterval(moveFunction, 150)
+resetButton.addEventListener(`click`, () => {
+    for (let i = 0; i < pixels.length; i++) {
+        pixels[i].classList = `pixel`
     }
-}
+    snake = [435,434]
+    snakeSize = 7
+    snakeDesignation()
+    direction = 1
+    dropApple()
+    score = 0
+})

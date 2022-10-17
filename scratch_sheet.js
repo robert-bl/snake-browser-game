@@ -56,13 +56,11 @@
 
 
 
-
-//interval test
-
-
-const logger = () => {
-    console.log(`hit`)
-}
-
-let hitter = setInterval(logger, 500)
-clearInterval(hitter)
+// const killSnake = () => {
+//     console.log(`snek ded`)
+//     for(let i = 0; i < pixels.length; i++) {
+//         if (pixels[i].classList.contains('snake')) {
+//         pixels[i].style.backgroundColor = `red`
+//         }
+//     }
+// }

@@ -24,8 +24,8 @@ let score = 0
 scoreBoard.innerText = `Points: ${score}`
 
 //set starting snake
-let snake = [435,434]
-let snakeSize = 7
+let snake = [435,434,433]
+let snakeSize = 3
 let direction = 1
 
 const snakeDesignation = () => {
@@ -41,7 +41,7 @@ const snakeDesignation = () => {
 snakeDesignation()
 
 
-
+//apple generator
 const dropApple = () => {
     let validDrops = []
     for (let i = 0; i < pixels.length; i++) {
@@ -53,6 +53,24 @@ const dropApple = () => {
 }
 
 dropApple()
+
+//obsticale generator
+const dropPrey = () => {
+    if (Math.random() < 0.1) {
+    let validDrops = []
+    let inPath = []
+    for (let i = 0; i < 3; i++) {
+        inPath.push(snake[0] + (direction*i))
+        console.log(inPath)
+    }
+    for (let i = 0; i < pixels.length; i++) {
+        if (pixels[i].classList.contains(`snake`) === false && inPath.includes(i) === false) {
+        validDrops.push(i)
+        }
+    }
+    pixels[validDrops[Math.floor((Math.random() * validDrops.length))]].classList.add(`prey`)
+    }
+}
 
 
 //move function
@@ -156,15 +174,22 @@ const collisionDetector = () => {
         clearInterval(timedMovement)
         return gameActive = false
     }
+//obsticle hit
+if ((pixels[snake[0] + direction].classList.contains(`prey`))) {
+    console.log(`obsticle hit`)
+    clearInterval(timedMovement)
+        return gameActive = false
+    }
 //apple hit
     if ((pixels[snake[0] + direction].classList.contains(`apple`))) {
         pixels[snake[0] + direction].classList.remove(`apple`)
         //give points
         score += 10
-        //doubled with scroe definiths, consider simplifying
+        //doubled with score definiths, consider simplifying
         scoreBoard.innerText = `Points: ${score}`
         snakeSize += 2
         dropApple()
+        dropPrey()
     }
 }
 
@@ -187,8 +212,8 @@ resetButton.addEventListener(`click`, () => {
     for (let i = 0; i < pixels.length; i++) {
         pixels[i].classList = `pixel`
     }
-    snake = [435,434]
-    snakeSize = 7
+    snake = [435,434,433]
+    snakeSize = 3
     snakeDesignation()
     direction = 1
     dropApple()

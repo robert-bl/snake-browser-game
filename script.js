@@ -1,5 +1,9 @@
 
 let board = document.querySelector(`#board`)
+let scoreBoard = document.querySelector(`#score`)
+let moveInterval = 150
+let playButton = document.querySelector(`#play`)
+let gameActive = false
 
 
 //generate board
@@ -14,9 +18,14 @@ let pixels = document.querySelectorAll(`.pixel`)
 //width variable used for determining vertical movement/collision
 let widthInterval = 30
 
+let score = 0
+scoreBoard.innerText = `Points: ${score}`
 
-let snake = [80]
+//starting snake
+let snake = [435,434]
 let snakeSize = 7
+
+
 
 
 const snakeDesignation = () => {
@@ -51,11 +60,15 @@ let direction = 1
 //add new div to front of snake
 //remove old div from end of snake
 const moveFunction = () => {
-    collisionDetector()
-    snake.unshift(snake[0] + direction)
-    while (snake.length > snakeSize) {snake.pop()}
-    snakeDesignation()
-    console.log(`snake is divs ${snake}`)
+    if (gameActive === true) {
+        collisionDetector()
+    }
+    if (gameActive === true) {
+        snake.unshift(snake[0] + direction)
+        while (snake.length > snakeSize) {snake.pop()}
+        snakeDesignation()
+        console.log(`snake is divs ${snake}`)
+    }
 }
 
 
@@ -102,7 +115,6 @@ document.addEventListener(`keydown`, function(event) {
         case 32 :
             moveFunction()
         break
-
     }
 
 })
@@ -118,31 +130,49 @@ const collisionDetector = () => {
 //top hit
     if (snake[0] < widthInterval && direction === -widthInterval) {
         console.log(`wall hit top`)
+        gameActive = false
     }
 //bottom hit
     if (snake[0] > ((widthInterval * widthInterval) - widthInterval) && direction === widthInterval) {
         console.log(`wall hit bottom`)
+        gameActive = false
     }
 //left hit
     if (snake[0] % widthInterval === 0 && direction === -1) {
         console.log(`wall hit left`)
+        gameActive = false
     }
 //right hit
     if ((snake[0]+1) % widthInterval === 0 && direction === 1) {
         console.log(`wall hit right`)
+        gameActive = false
     }
 //snake hit
     if ((pixels[snake[0] + direction].classList.contains(`snake`))) {
         console.log(`snake hit`)
+        gameActive = false
     }
 //apple hit
     if ((pixels[snake[0] + direction].classList.contains(`apple`))) {
         pixels[snake[0] + direction].classList.remove(`apple`)
         //give points
-        console.log(`10 points!`)
+        score += 10
+        //doubled with scroe definiths, consider simplifying
+        scoreBoard.innerText = `Points: ${score}`
         snakeSize += 2
         dropApple()
     }
 }
-// setInterval(moveFunction, 150)
 
+playButton.addEventListener(`click`, () => {
+    gameActive = true
+    clearInterval(moveInterval)
+    moveInterval = 150
+    runGame()
+})
+
+const runGame = () => {
+    if (gameActive === true) {
+        return setInterval(moveFunction, 150)
+    }
+}

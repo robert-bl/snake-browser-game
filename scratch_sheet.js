@@ -64,3 +64,15 @@
 //         }
 //     }
 // }
+
+
+
+
+//constriction
+let preyLocations = document.querySelectorAll(`.prey`)
+
+//prey is at location prey[0]
+
+if (index[prey[0] + 1].classList.contains(`snake`)) {
+    
+}

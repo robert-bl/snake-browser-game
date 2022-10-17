@@ -56,12 +56,12 @@ dropApple()
 
 //obsticale generator
 const dropPrey = () => {
-    if (Math.random() < 0.1) {
+    if (Math.random() < 0.2) {
     let validDrops = []
     let inPath = []
     for (let i = 0; i < 3; i++) {
         inPath.push(snake[0] + (direction*i))
-        console.log(inPath)
+        // console.log(inPath)
     }
     for (let i = 0; i < pixels.length; i++) {
         if (pixels[i].classList.contains(`snake`) === false && inPath.includes(i) === false) {
@@ -69,6 +69,29 @@ const dropPrey = () => {
         }
     }
     pixels[validDrops[Math.floor((Math.random() * validDrops.length))]].classList.add(`prey`)
+    }
+}
+
+//constriction detection for prey obsticles
+const detectConstriction = () => {
+    for (let i = 0; i < pixels.length; i++) {
+        if (pixels[i].classList.contains(`prey`)) {
+            let totalAdjacents = 0
+            if (pixels[i + 1].classList.contains(`snake`)) {
+                totalAdjacents++
+            }
+            if (pixels[i - 1].classList.contains(`snake`)) {
+                totalAdjacents++
+            }if (pixels[i + widthInterval].classList.contains(`snake`)) {
+                totalAdjacents++
+            }if (pixels[i - widthInterval].classList.contains(`snake`)) {
+                totalAdjacents++
+            }
+            if (totalAdjacents > 2) {
+                pixels[i].classList.remove(`prey`)
+                pixels[i].classList.add(`golden`)
+            }
+        }
     }
 }
 
@@ -84,6 +107,7 @@ const moveFunction = () => {
         while (snake.length > snakeSize) {snake.pop()}
         snakeDesignation()
         // console.log(`snake is divs ${snake}`)
+        detectConstriction()
     }
 }
 
@@ -191,6 +215,13 @@ if ((pixels[snake[0] + direction].classList.contains(`prey`))) {
         dropApple()
         dropPrey()
     }
+//golden apple hit
+    if ((pixels[snake[0] + direction].classList.contains(`golden`))) {
+        pixels[snake[0] + direction].classList.remove(`golden`)
+        score += 100
+        scoreBoard.innerText = `Points: ${score}`
+        snakeSize += 3
+    }
 }
 
 
@@ -209,6 +240,7 @@ playButton.addEventListener(`click`, () => {
 })
 
 resetButton.addEventListener(`click`, () => {
+    clearInterval(timedMovement)
     for (let i = 0; i < pixels.length; i++) {
         pixels[i].classList = `pixel`
     }
@@ -218,4 +250,5 @@ resetButton.addEventListener(`click`, () => {
     direction = 1
     dropApple()
     score = 0
+    scoreBoard.innerText = `Points: ${score}`
 })

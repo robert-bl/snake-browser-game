@@ -19,6 +19,34 @@ let pixels = document.querySelectorAll(`.pixel`)
 //width variable used for determining vertical movement/collision
 let widthInterval = 30
 
+
+//detecting outer pixels
+let edges = []
+const defineEdges = () => {
+    //top
+    for (let i = 0; i < widthInterval; i++) {
+        edges.push(i)
+    }
+    //right
+    for (let i = (widthInterval * 2) - 1; i < (widthInterval * widthInterval) - widthInterval; i++)
+        if ((i + 1) % widthInterval === 0) {
+            edges.push(i)
+        }
+    //bottom
+    for (let i = (widthInterval * widthInterval) - widthInterval; i < widthInterval * widthInterval; i++) {
+        edges.push(i)
+    }
+    //left
+    for (let i = widthInterval; i < (widthInterval * widthInterval) - (widthInterval); i++) {
+        if (i % widthInterval === 0) {
+            edges.push(i)
+        }
+    }
+}
+defineEdges()
+console.log(edges)
+
+
 //define score and scoreboard
 let score = 0
 scoreBoard.innerText = `Points: ${score}`
@@ -45,7 +73,7 @@ snakeDesignation()
 const dropApple = () => {
     let validDrops = []
     for (let i = 0; i < pixels.length; i++) {
-        if (pixels[i].classList.contains(`snake`) === false) {
+        if (pixels[i].classList.contains(`snake`) === false && pixels[i].classList.contains(`obst`) === false && pixels[i].classList.contains(`golden`) === false) {
         validDrops.push(i)
         }
     }
@@ -54,8 +82,8 @@ const dropApple = () => {
 
 dropApple()
 
-//obsticale generator
-const dropPrey = () => {
+//obstacle generator
+const dropObst = () => {
     if (Math.random() < 0.2) {
     let validDrops = []
     let inPath = []
@@ -64,18 +92,20 @@ const dropPrey = () => {
         // console.log(inPath)
     }
     for (let i = 0; i < pixels.length; i++) {
-        if (pixels[i].classList.contains(`snake`) === false && inPath.includes(i) === false) {
+        if (pixels[i].classList.contains(`snake`) === false && inPath.includes(i) === false && edges.includes(i) === false && pixels[i].classList.contains(`obst`) === false && pixels[i].classList.contains(`golden`) === false) {
         validDrops.push(i)
         }
     }
-    pixels[validDrops[Math.floor((Math.random() * validDrops.length))]].classList.add(`prey`)
+    if (validDrops.length !== 0) {
+        pixels[validDrops[Math.floor((Math.random() * validDrops.length))]].classList.add(`obst`)
+        }
     }
 }
 
-//constriction detection for prey obsticles
+//constriction detection for obstacles
 const detectConstriction = () => {
     for (let i = 0; i < pixels.length; i++) {
-        if (pixels[i].classList.contains(`prey`)) {
+        if (pixels[i].classList.contains(`obst`)) {
             let totalAdjacents = 0
             if (pixels[i + 1].classList.contains(`snake`)) {
                 totalAdjacents++
@@ -88,7 +118,7 @@ const detectConstriction = () => {
                 totalAdjacents++
             }
             if (totalAdjacents > 2) {
-                pixels[i].classList.remove(`prey`)
+                pixels[i].classList.remove(`obst`)
                 pixels[i].classList.add(`golden`)
             }
         }
@@ -198,9 +228,9 @@ const collisionDetector = () => {
         clearInterval(timedMovement)
         return gameActive = false
     }
-//obsticle hit
-if ((pixels[snake[0] + direction].classList.contains(`prey`))) {
-    console.log(`obsticle hit`)
+//obstacle hit
+if ((pixels[snake[0] + direction].classList.contains(`obst`))) {
+    console.log(`obstacle hit`)
     clearInterval(timedMovement)
         return gameActive = false
     }
@@ -213,7 +243,7 @@ if ((pixels[snake[0] + direction].classList.contains(`prey`))) {
         scoreBoard.innerText = `Points: ${score}`
         snakeSize += 2
         dropApple()
-        dropPrey()
+        dropObst()
     }
 //golden apple hit
     if ((pixels[snake[0] + direction].classList.contains(`golden`))) {

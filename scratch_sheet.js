@@ -68,11 +68,28 @@
 
 
 
-//constriction
-let preyLocations = document.querySelectorAll(`.prey`)
+//detecting outer pixels
+let edges = []
+const defineEdges = () => {
+    //top
+    for (let i = 0; i < widthInterval; i++) {
+        edges.push(i)
+    }
+    //right
+    for (let i = (widthInterval * 2) - 1; i < (widthInterval * widthInterval) - widthInterval; i++)
+        if ((i + 1) % widthInterval === 0) {
+            edges.push(i)
+        }
 
-//prey is at location prey[0]
-
-if (index[prey[0] + 1].classList.contains(`snake`)) {
-    
+    //bottom
+    for (let i = (widthInterval * widthInterval) - widthInterval; i < widthInterval * widthInterval; i++) {
+        edges.push(i)
+    }
+    //left
+    for (let i = widthInterval; i < (widthInterval * widthInterval) - (widthInterval); i++) {
+        if (i % widthInterval === 0) {
+            edges.push(i)
+        }
+    }
 }
+defineEdges()

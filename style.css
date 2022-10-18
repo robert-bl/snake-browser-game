@@ -24,9 +24,9 @@ body {
     border-radius: 30%;
 }
 
-.prey {
-    background-color: brown;
-    border-color: red;
+.obst {
+    background-color: #3F3F9F;
+    border-color: silver;
 }
 
 .apple {

@@ -73,7 +73,7 @@ snakeDesignation()
 const dropApple = () => {
     let validDrops = []
     for (let i = 0; i < pixels.length; i++) {
-        if (pixels[i].classList.contains(`snake`) === false && pixels[i].classList.contains(`obst`) === false && pixels[i].classList.contains(`golden`) === false) {
+        if (pixels[i].classList.length === 1) {
         validDrops.push(i)
         }
     }
@@ -92,7 +92,7 @@ const dropObst = () => {
         // console.log(inPath)
     }
     for (let i = 0; i < pixels.length; i++) {
-        if (pixels[i].classList.contains(`snake`) === false && inPath.includes(i) === false && edges.includes(i) === false && pixels[i].classList.contains(`obst`) === false && pixels[i].classList.contains(`golden`) === false) {
+        if (pixels[i].classList.length === 1 && inPath.includes(i) === false && edges.includes(i) === false) {
         validDrops.push(i)
         }
     }

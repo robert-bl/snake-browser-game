@@ -6,6 +6,8 @@ let snakePixels = document.querySelectorAll(`.snake`)
 let gameActive = false
 let resetButton = document.querySelector(`#reset`)
 let moveInterval = 150
+let redApple = document.querySelector(`.apple`)
+
 
 //generate board
 
@@ -49,7 +51,7 @@ console.log(edges)
 
 //define score and scoreboard
 let score = 0
-scoreBoard.innerText = `Points: ${score}`
+scoreBoard.innerText = `${score}`
 
 //set starting snake
 let snake = [435,434,433]
@@ -78,9 +80,11 @@ const dropApple = () => {
         }
     }
     pixels[validDrops[Math.floor((Math.random() * validDrops.length))]].classList.add(`apple`)
+    
 }
 
 dropApple()
+
 
 //obstacle generator
 const dropObst = () => {
@@ -183,9 +187,6 @@ document.addEventListener(`keydown`, function(event) {
             console.log(`right`)
             if (snake[1] !== snake[0] + 1) {direction = 1}
         break
-        case 32 :
-            moveFunction()
-        break
     }
 }
 })
@@ -240,7 +241,7 @@ if ((pixels[snake[0] + direction].classList.contains(`obst`))) {
         //give points
         score += 10
         //doubled with score definiths, consider simplifying
-        scoreBoard.innerText = `Points: ${score}`
+        scoreBoard.innerText = `${score}`
         snakeSize += 2
         dropApple()
         dropObst()
@@ -249,7 +250,7 @@ if ((pixels[snake[0] + direction].classList.contains(`obst`))) {
     if ((pixels[snake[0] + direction].classList.contains(`golden`))) {
         pixels[snake[0] + direction].classList.remove(`golden`)
         score += 100
-        scoreBoard.innerText = `Points: ${score}`
+        scoreBoard.innerText = `${score}`
         snakeSize += 3
     }
 }
@@ -266,8 +267,11 @@ const runGame = () => {
 
 playButton.addEventListener(`click`, () => {
     gameActive = true
+    playButton.style.backgroundColor = `gray`
+    resetButton.style.backgroundColor = `red`
     runGame()
 })
+
 
 resetButton.addEventListener(`click`, () => {
     clearInterval(timedMovement)
@@ -280,5 +284,8 @@ resetButton.addEventListener(`click`, () => {
     direction = 1
     dropApple()
     score = 0
-    scoreBoard.innerText = `Points: ${score}`
+    scoreBoard.innerText = `${score}`
+    resetButton.style.backgroundColor = `gray`
+    playButton.style.backgroundColor = `green`
 })
+

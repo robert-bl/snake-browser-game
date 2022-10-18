@@ -2,11 +2,26 @@ body {
     display: grid;
     grid-template-rows: 50px 800px;
     grid-template-columns: 800px 300px;
-
+    background-color: slategray;
 }
+
+/* @keyframes redHit {
+    0% {box-shadow: 0px 0px 10px maroon;}
+    100% {box-shadow: 0px 0px 100px maroon;}
+}
+
+@keyframes goldHit{
+    0% {box-shadow: 0px 0px 10px orangered;}
+    33% {box-shadow: 0px 0px 50px orangered;}
+    66% {box-shadow: 0px 0px 10px orangered;}
+    100% {box-shadow: 0px 0px 50px orangered;}
+} */
 
 #header {
     grid-column: span 2;
+    margin-left: 50px;
+
+    font-size: 20px;
 }
 
 #board {
@@ -15,12 +30,24 @@ body {
     border: 1px solid black;
     display: flex;
     flex-wrap: wrap;
-    margin: 25px
+    margin: 25px;
+    background-color: #C4C3BD;
+}
+
+.pixel {
+    height: 25px;
+    width: 25px;
+    border: 1px solid rgb(187, 187, 186);
+    box-sizing: border-box;
+    background-color: #C4C3BD;
+    transition: box-shadow;
 }
 
 #interface {
     display: grid;
     grid-template-rows: 100px 100px 600px;
+    border: 1px solid black;
+    margin: 25px 0px;
 }
 
 #scoreBoard {
@@ -36,6 +63,7 @@ body {
     border: 1px solid black;
     width: 150px;
     padding-left: 10px;
+    background-color: lightgray;
 }
 
 #buttonsArea {
@@ -44,7 +72,8 @@ body {
 }
 
 .interfaceButton {
-    width: 120px
+    width: 120px;
+    border-radius: 15%;
 }
 
 #play {
@@ -54,15 +83,6 @@ body {
 #reset {
     background-color: gray;
 }
-
-.pixel {
-    height: 25px;
-    width: 25px;
-    border: 1px dotted #999999;
-    box-sizing: border-box;
-    background-color: white;
-}
-
 
 .snake {
     background-color: black;
@@ -82,4 +102,24 @@ body {
 .golden {
     background-color: goldenrod;
     border-radius: 50%;
+    transition: all 0.5s;
 }
+
+#rules {
+    background-color: lightgray;
+    margin: 25px;
+    padding: 10px;
+    height: 450px;
+}
+
+.deadSnake {
+    box-shadow: 0px 0px 10px maroon
+}
+
+/* .hitClassRed {
+    animation: redHit 1s;
+}
+
+.hitClassGold {
+    animation: goldHit 1s;
+} */

@@ -9,8 +9,9 @@
 
 //https://stackoverflow.com/questions/70268854/why-the-interval-will-become-faster-and-faster-if-i-keep-setting-new-interval discovered .clearInterval
 
+//https://stackoverflow.com/questions/44846614/trigger-css-animations-in-javascript animation help
 
-
+//https://www.w3schools.com/css/tryit.asp?filename=trycss3_animation2 animation help
 
 
 ////////////////////////

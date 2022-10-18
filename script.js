@@ -88,7 +88,7 @@ dropApple()
 
 //obstacle generator
 const dropObst = () => {
-    if (Math.random() < 0.2) {
+    if (Math.random() < 0.25) {
     let validDrops = []
     let inPath = []
     for (let i = 0; i < 3; i++) {
@@ -146,8 +146,13 @@ const moveFunction = () => {
 }
 
 
-
-
+const killSnake = () => {
+    for (let i = 0; i < pixels.length; i++) {
+        if (snake.contains(i)) {
+            pixels[i].classList.add(`deadSnake`)
+        }
+    }
+}
 
 
 //keystroke detection
@@ -238,6 +243,7 @@ if ((pixels[snake[0] + direction].classList.contains(`obst`))) {
 //apple hit
     if ((pixels[snake[0] + direction].classList.contains(`apple`))) {
         pixels[snake[0] + direction].classList.remove(`apple`)
+        // pixels[snake[0] + direction].classList.add(`hitClassRed`)
         //give points
         score += 10
         //doubled with score definiths, consider simplifying
@@ -249,6 +255,7 @@ if ((pixels[snake[0] + direction].classList.contains(`obst`))) {
 //golden apple hit
     if ((pixels[snake[0] + direction].classList.contains(`golden`))) {
         pixels[snake[0] + direction].classList.remove(`golden`)
+        // pixels[snake[0] + direction].classList.add(`hitClassGold`)
         score += 100
         scoreBoard.innerText = `${score}`
         snakeSize += 3

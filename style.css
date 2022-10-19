@@ -45,24 +45,32 @@ body {
 
 #interface {
     display: grid;
-    grid-template-rows: 100px 100px 600px;
+    grid-template-rows: 200px 100px 500px;
     border: 1px solid black;
     margin: 25px 0px;
 }
 
 #scoreBoard {
     border: 1px solid black;
-    margin: 25px 10px;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-template-rows: 1fr 1fr;
     align-items: center;
-    padding: 5px;
+    margin: 10px;
+    padding: 10px;
 }
 
 #score {
     border: 1px solid black;
-    width: 150px;
-    padding-left: 10px;
+    width: 100px;
+    padding-left: 20px;
+    background-color: lightgray;
+}
+
+#highScore {
+    border: 1px solid black;
+    width: 100px;
+    padding-left: 20px;
     background-color: lightgray;
 }
 
@@ -109,7 +117,7 @@ body {
     background-color: lightgray;
     margin: 25px;
     padding: 10px;
-    height: 450px;
+    height: 350px;
 }
 
 .deadSnake {

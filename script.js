@@ -7,6 +7,7 @@ let gameActive = false
 let resetButton = document.querySelector(`#reset`)
 let moveInterval = 150
 let redApple = document.querySelector(`.apple`)
+let highScoreBoard = document.querySelector(`#highScore`)
 
 
 //generate board
@@ -51,7 +52,9 @@ console.log(edges)
 
 //define score and scoreboard
 let score = 0
+let highScore = 0
 scoreBoard.innerText = `${score}`
+highScoreBoard.innerText = `${highScore}`
 
 //set starting snake
 let snake = [435,434,433]
@@ -147,8 +150,9 @@ const moveFunction = () => {
 
 
 const killSnake = () => {
+    console.log(`kill snake`)
     for (let i = 0; i < pixels.length; i++) {
-        if (snake.contains(i)) {
+        if (snake.includes(i)) {
             pixels[i].classList.add(`deadSnake`)
         }
     }
@@ -202,42 +206,43 @@ const collisionDetector = () => {
 //top hit
     if (snake[0] < widthInterval && direction === -widthInterval) {
         console.log(`wall hit top`)
-        // killSnake()
+        killSnake()
         clearInterval(timedMovement)
         return gameActive = false
     }
 //bottom hit
     if (snake[0] > ((widthInterval * widthInterval) - widthInterval) && direction === widthInterval) {
         console.log(`wall hit bottom`)
-        // killSnake()
+        killSnake()
         clearInterval(timedMovement)
         return gameActive = false
     }
 //left hit
     if (snake[0] % widthInterval === 0 && direction === -1) {
         console.log(`wall hit left`)
-        // killSnake()
+        killSnake()
         clearInterval(timedMovement)
         return gameActive = false
     }
 //right hit
     if ((snake[0]+1) % widthInterval === 0 && direction === 1) {
         console.log(`wall hit right`)
-        // killSnake()
+        killSnake()
         clearInterval(timedMovement)
         return gameActive = false
     }
 //snake hit
     if ((pixels[snake[0] + direction].classList.contains(`snake`))) {
         console.log(`snake hit`)
-        // killSnake()
+        killSnake()
         clearInterval(timedMovement)
         return gameActive = false
     }
 //obstacle hit
-if ((pixels[snake[0] + direction].classList.contains(`obst`))) {
-    console.log(`obstacle hit`)
-    clearInterval(timedMovement)
+    if ((pixels[snake[0] + direction].classList.contains(`obst`))) {
+        console.log(`obstacle hit`)
+        clearInterval(timedMovement)
+        killSnake()
         return gameActive = false
     }
 //apple hit
@@ -290,6 +295,10 @@ resetButton.addEventListener(`click`, () => {
     snakeDesignation()
     direction = 1
     dropApple()
+    if (score > highScore) {
+        highScore = score
+    }
+    highScoreBoard.innerText = `${highScore}`
     score = 0
     scoreBoard.innerText = `${score}`
     resetButton.style.backgroundColor = `gray`

@@ -278,10 +278,12 @@ const runGame = () => {
 }
 
 playButton.addEventListener(`click`, () => {
+    if (gameActive === false) {
     gameActive = true
     playButton.style.backgroundColor = `gray`
     resetButton.style.backgroundColor = `red`
     runGame()
+    }
 })
 
 

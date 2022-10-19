@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -23,6 +26,15 @@
         <div id="buttonsArea">
             <button class="interfaceButton" id="play">Play</button>
             <button class="interfaceButton" id="reset">Reset</button>
+        </div>
+        <div>
+            <h4>Game Speed:</h4>
+            <div id="speedButtons">
+                <button class="speed" id="slow">Slow</button>
+                <button class="speed" id="avg">Average</button>
+                <button class="speed" id="fast">Fast</button>
+                <button class="speed" id="faster">Faster</button>
+            </div>
         </div>
         <div id="rules">
             <p>Move your snake with arrow keys or WASD to eat the red apples. Be careful to avoid running into the walls or your own tail.</p>

@@ -5,10 +5,14 @@ let playButton = document.querySelector(`#play`)
 let snakePixels = document.querySelectorAll(`.snake`)
 let gameActive = false
 let resetButton = document.querySelector(`#reset`)
-let moveInterval = 150
 let redApple = document.querySelector(`.apple`)
 let highScoreBoard = document.querySelector(`#highScore`)
-
+let speedButtons = document.querySelectorAll(`.speed`)
+let slowButton = document.querySelector(`#slow`)
+let avgButton = document.querySelector(`#avg`)
+let fastButton = document.querySelector(`#fast`)
+let fasterButton = document.querySelector(`#faster`)
+let moveInterval = 150
 
 //generate board
 
@@ -135,7 +139,7 @@ const detectConstriction = () => {
 
 //move function
 const moveFunction = () => {
-    console.log(`mvFun`)
+    console.log(moveInterval)
     if (gameActive === true) {
         collisionDetector()
     }
@@ -267,22 +271,44 @@ const collisionDetector = () => {
     }
 }
 
+console.log(speedButtons)
 
-
+speedButtons.forEach((spdBtn) => {
+    console.log(spdBtn)
+    spdBtn.addEventListener(`click`, () => {
+        if (gameActive === false) {
+            console.log(`ping`)
+            if (spdBtn.id == `slow`) {
+                moveInterval = 200
+            } else if (spdBtn.id == `avg`) {
+                moveInterval = 150
+            } else if (spdBtn.id == `fast`) {
+                moveInterval = 100
+            } else if (spdBtn.id == `faster`) {
+                moveInterval = 60
+            }
+            speedButtons.forEach((btn) => {
+                btn.style.backgroundColor = `gray`
+            })
+            spdBtn.style.backgroundColor = `green`
+        }
+    })
+})
 
 let timedMovement = setInterval(moveFunction, moveInterval)
 clearInterval(timedMovement)
 
-const runGame = () => {
-    timedMovement = setInterval(moveFunction, moveInterval)
-}
+// const runGame = () => {
+//     timedMovement = setInterval(moveFunction, moveInterval)
+// }
 
 playButton.addEventListener(`click`, () => {
     if (gameActive === false) {
     gameActive = true
     playButton.style.backgroundColor = `gray`
     resetButton.style.backgroundColor = `red`
-    runGame()
+    timedMovement = setInterval(moveFunction, moveInterval)
+    // runGame()
     }
 })
 
@@ -292,6 +318,7 @@ resetButton.addEventListener(`click`, () => {
     for (let i = 0; i < pixels.length; i++) {
         pixels[i].classList = `pixel`
     }
+    gameActive = false
     snake = [435,434,433]
     snakeSize = 3
     snakeDesignation()

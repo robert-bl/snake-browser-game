@@ -150,3 +150,178 @@ footer {
 .deadSnake {
     box-shadow: 0px 0px 10px #eb2222;
 }
+
+@media screen and (max-height: 900px) {
+    body {
+        grid-template-rows: 50px 650px;
+        grid-template-columns: 650px 300px;
+    }
+    
+    #header {
+        margin-left: 30px;
+        font-size: 25px;
+        letter-spacing: 4px;
+    }
+    
+    #board {
+        height: 600px;
+        width: 600px;
+        margin: 25px;
+    }
+    
+    .pixel {
+        height: 20px;
+        width: 20px;
+    }
+    
+    #interface {
+        grid-template-rows: 100px 75px 75px 250px;
+        margin: 25px 0px;
+    }
+    
+    #scoreBoard {
+        grid-template-columns: 2fr 3fr;
+        grid-template-rows: 1fr 1fr;
+        align-items: center;
+        margin: 10px;
+        padding: 10px;
+    }
+    
+    #score {
+        width: 100px;
+        padding-left: 20px;
+    }
+    
+    #highScore {
+        width: 100px;
+        padding-left: 20px;
+    }
+    
+    #buttonsArea {
+        display: flex;
+        justify-content: space-around;
+    }
+    
+    .interfaceButton {
+        width: 120px;
+        border-radius: 15%;
+    }
+
+    h4 {
+        margin-left: 25px;
+    }
+    
+    #speedButtons {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    
+    .speed {
+        border: 2px solid black;
+        border-radius: 15%;
+    }
+    
+    #rules {
+        padding: 10px;
+        height: 300px;
+        margin: auto 5px;
+        margin-top: 15px;
+    }
+    
+    footer {
+        margin-left: 50px;
+    }
+    
+}
+
+
+@media screen and (max-height: 750px) {
+    body {
+        grid-template-rows: 25px 475px;
+        grid-template-columns: 475px 200px;
+    }
+    #header {
+        grid-column: span 2;
+        margin-left: 20px;
+        font-size: 12px;
+        letter-spacing: 2px;
+    }
+    #board {
+        height: 450px;
+        width: 450px;
+        margin: 12px;
+    }
+    .pixel {
+        height: 15px;
+        width: 15px;
+    }
+    #interface {
+        width: 175px;
+        grid-template-rows: 100px 50px 50px 200px;
+        border: 3px solid black;
+        margin: 15px 0px;
+        font-family: 'Acme', sans-serif;
+    }
+
+    #scoreBoard {
+        width: 150px;
+        margin: 5px;
+        padding: 5px;
+    }
+
+    #score {
+        width: 60px;
+        padding-left: 10px;
+    }
+
+    #highScore {
+        width: 60px;
+        padding-left: 10px;
+    }
+
+    #buttonsArea {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .interfaceButton {
+        width: 70px;
+        border-radius: 15%;
+    }
+
+    h4 {
+        margin-left: 25px;
+        font-size: 12px;
+    }
+
+    #speedButtons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .speed {
+        border: 2px solid black;
+        border-radius: 15%;
+        width: 55px;
+        font-size: 11px;
+    }
+
+    #rules {
+        padding: 10px;
+        height: 175px;
+        margin: auto 5px;
+        margin-top: 37px;
+    }
+
+    p {
+        font-size: 11px;
+    }
+
+    footer {
+        margin-left: 20px;
+        font-size: 10px;
+    }
+}

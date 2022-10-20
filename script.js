@@ -51,7 +51,6 @@ const defineEdges = () => {
     }
 }
 defineEdges()
-console.log(edges)
 
 
 //define score and scoreboard
@@ -211,6 +210,7 @@ const collisionDetector = () => {
     if (snake[0] < widthInterval && direction === -widthInterval) {
         console.log(`wall hit top`)
         killSnake()
+        logHighScore()
         clearInterval(timedMovement)
         return gameActive = false
     }
@@ -218,6 +218,7 @@ const collisionDetector = () => {
     if (snake[0] > ((widthInterval * widthInterval) - widthInterval) && direction === widthInterval) {
         console.log(`wall hit bottom`)
         killSnake()
+        logHighScore()
         clearInterval(timedMovement)
         return gameActive = false
     }
@@ -225,6 +226,7 @@ const collisionDetector = () => {
     if (snake[0] % widthInterval === 0 && direction === -1) {
         console.log(`wall hit left`)
         killSnake()
+        logHighScore()
         clearInterval(timedMovement)
         return gameActive = false
     }
@@ -232,6 +234,7 @@ const collisionDetector = () => {
     if ((snake[0]+1) % widthInterval === 0 && direction === 1) {
         console.log(`wall hit right`)
         killSnake()
+        logHighScore()
         clearInterval(timedMovement)
         return gameActive = false
     }
@@ -239,6 +242,7 @@ const collisionDetector = () => {
     if ((pixels[snake[0] + direction].classList.contains(`snake`))) {
         console.log(`snake hit`)
         killSnake()
+        logHighScore()
         clearInterval(timedMovement)
         return gameActive = false
     }
@@ -247,6 +251,7 @@ const collisionDetector = () => {
         console.log(`obstacle hit`)
         clearInterval(timedMovement)
         killSnake()
+        logHighScore()
         return gameActive = false
     }
 //apple hit
@@ -271,37 +276,59 @@ const collisionDetector = () => {
     }
 }
 
-console.log(speedButtons)
-
+//Speed buttons
 speedButtons.forEach((spdBtn) => {
     console.log(spdBtn)
     spdBtn.addEventListener(`click`, () => {
+        speedButtons.forEach((btn) => {
+            btn.style.backgroundColor = `gray`
+        })
         if (gameActive === false) {
-            console.log(`ping`)
             if (spdBtn.id == `slow`) {
                 moveInterval = 200
+                spdBtn.style.backgroundColor = `green`
             } else if (spdBtn.id == `avg`) {
                 moveInterval = 150
+                spdBtn.style.backgroundColor = `goldenrod`
             } else if (spdBtn.id == `fast`) {
                 moveInterval = 100
+                spdBtn.style.backgroundColor = `red`
             } else if (spdBtn.id == `faster`) {
+                spdBtn.style.backgroundColor = `magenta`
                 moveInterval = 60
             }
-            speedButtons.forEach((btn) => {
-                btn.style.backgroundColor = `gray`
-            })
-            spdBtn.style.backgroundColor = `green`
         }
     })
 })
 
+
+//Log high score
+const logHighScore = () => {
+    if (score > highScore) {
+        highScore = score
+        switch (moveInterval) {
+            case 200 : 
+                highScoreBoard.style.border = `3px solid green`
+            break
+            case 150 :
+                highScoreBoard.style.border = `3px solid goldenrod`
+            break
+            case 100 :
+                highScoreBoard.style.border = `3px solid red`
+            break
+            case 60 :
+                highScoreBoard.style.border = `3px solid magenta`
+            break
+        }
+    }
+    highScoreBoard.innerText = `${highScore}`
+}
+
+//Define timed movement interval
 let timedMovement = setInterval(moveFunction, moveInterval)
 clearInterval(timedMovement)
 
-// const runGame = () => {
-//     timedMovement = setInterval(moveFunction, moveInterval)
-// }
-
+//Play button
 playButton.addEventListener(`click`, () => {
     if (gameActive === false) {
     gameActive = true
@@ -312,7 +339,7 @@ playButton.addEventListener(`click`, () => {
     }
 })
 
-
+//Reset button
 resetButton.addEventListener(`click`, () => {
     clearInterval(timedMovement)
     for (let i = 0; i < pixels.length; i++) {
@@ -324,10 +351,10 @@ resetButton.addEventListener(`click`, () => {
     snakeDesignation()
     direction = 1
     dropApple()
-    if (score > highScore) {
-        highScore = score
-    }
-    highScoreBoard.innerText = `${highScore}`
+    // if (score > highScore) {
+    //     highScore = score
+    // }
+    // highScoreBoard.innerText = `${highScore}`
     score = 0
     scoreBoard.innerText = `${score}`
     resetButton.style.backgroundColor = `gray`

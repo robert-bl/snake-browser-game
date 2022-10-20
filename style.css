@@ -20,7 +20,7 @@ body {
 #header {
     grid-column: span 2;
     margin-left: 50px;
-    font-size: 20px;
+    font-size: 25px;
     font-family: 'Acme', sans-serif;
     letter-spacing: 4px;
 }
@@ -28,7 +28,7 @@ body {
 #board {
     height: 750px;
     width: 750px;
-    border: 1px solid black;
+    border: 3px solid black;
     display: flex;
     flex-wrap: wrap;
     margin: 25px;
@@ -46,14 +46,14 @@ body {
 
 #interface {
     display: grid;
-    grid-template-rows: 200px 100px 50px 450px;
-    border: 2px solid black;
+    grid-template-rows: 150px 100px 100px 450px;
+    border: 3px solid black;
     margin: 25px 0px;
     font-family: 'Acme', sans-serif;
 }
 
 #scoreBoard {
-    border: 1px solid black;
+    border: 2px solid black;
     display: grid;
     grid-template-columns: 2fr 3fr;
     grid-template-rows: 1fr 1fr;
@@ -84,7 +84,7 @@ body {
 .interfaceButton {
     width: 120px;
     border-radius: 15%;
-    border: 2px solid black;
+    border: 3px solid black;
 }
 
 #play {
@@ -105,31 +105,37 @@ h4 {
 }
 
 .speed {
+    border: 2px solid black;
     border-radius: 15%;
 }
 
 #slow {
-    background-color: gray
+    background-color: gray;
 }
 
 #avg {
-    background-color: green
+    background-color: goldenrod;
 }
 
 #fast {
-    background-color: gray
+    background-color: gray;
 }
 
 #faster {
-    background-color: gray
+    background-color: gray;
 }
 
 #rules {
     background-color: lightgray;
+    border: 2px solid black;
     padding: 10px;
     height: 300px;
-    margin-top: 50px;
+    margin-top: 25px;
     margin-inline: 25px;;
+}
+
+footer {
+    margin-left: 50px;
 }
 
 .snake {
@@ -153,10 +159,8 @@ h4 {
     transition: all 0.5s;
 }
 
-
-
 .deadSnake {
-    box-shadow: 0px 0px 10px maroon
+    box-shadow: 0px 0px 10px #eb2222;
 }
 
 /* .hitClassRed {

@@ -1,13 +1,12 @@
-//https://www.freecodecamp.org/news/how-to-build-a-snake-game-in-javascript/ used for research on how board generation, snake movement, and hit detection works
-
+//https://www.freecodecamp.org/news/how-to-build-a-snake-game-in-javascript/ used for research on technique used for board generation, snake designtion, snake movement, and hit detection
 
 //https://stackoverflow.com/questions/5597060/detecting-arrow-key-presses-in-javascript used for learning keystroke input
 
 //https://github.com/CodeExplainedRepo/Snake-JavaScript/blob/master/snake.js .keyCode method for detecting key strokes
 
-//https://tpiros.dev/blog/contains-vs-includes/ information on when to use the ,includes() method and when to use the .contains() method
+//https://tpiros.dev/blog/contains-vs-includes/ information on when to use the .includes() method and when to use the .contains() method
 
-//https://stackoverflow.com/questions/70268854/why-the-interval-will-become-faster-and-faster-if-i-keep-setting-new-interval discovered .clearInterval
+//https://stackoverflow.com/questions/70268854/why-the-interval-will-become-faster-and-faster-if-i-keep-setting-new-interval discovered .clearInterval method
 
 //https://stackoverflow.com/questions/44846614/trigger-css-animations-in-javascript animation help
 
@@ -70,27 +69,54 @@
 
 
 //detecting outer pixels
-let edges = []
-const defineEdges = () => {
-    //top
-    for (let i = 0; i < widthInterval; i++) {
-        edges.push(i)
-    }
-    //right
-    for (let i = (widthInterval * 2) - 1; i < (widthInterval * widthInterval) - widthInterval; i++)
-        if ((i + 1) % widthInterval === 0) {
-            edges.push(i)
-        }
+// let edges = []
+// const defineEdges = () => {
+//     //top
+//     for (let i = 0; i < widthInterval; i++) {
+//         edges.push(i)
+//     }
+//     //right
+//     for (let i = (widthInterval * 2) - 1; i < (widthInterval * widthInterval) - widthInterval; i++)
+//         if ((i + 1) % widthInterval === 0) {
+//             edges.push(i)
+//         }
 
-    //bottom
-    for (let i = (widthInterval * widthInterval) - widthInterval; i < widthInterval * widthInterval; i++) {
-        edges.push(i)
-    }
-    //left
-    for (let i = widthInterval; i < (widthInterval * widthInterval) - (widthInterval); i++) {
-        if (i % widthInterval === 0) {
-            edges.push(i)
+//     //bottom
+//     for (let i = (widthInterval * widthInterval) - widthInterval; i < widthInterval * widthInterval; i++) {
+//         edges.push(i)
+//     }
+//     //left
+//     for (let i = widthInterval; i < (widthInterval * widthInterval) - (widthInterval); i++) {
+//         if (i % widthInterval === 0) {
+//             edges.push(i)
+//         }
+//     }
+// }
+// defineEdges()
+
+
+//alternate speed button coloring
+speedButtons.forEach((spdBtn) => {
+    console.log(spdBtn)
+    spdBtn.addEventListener(`click`, () => {
+        speedButtons.forEach((btn) => {
+            btn.style.backgroundColor = `gray`
+        })
+        if (gameActive === false) {
+            console.log(`ping`)
+            if (spdBtn.id == `slow`) {
+                moveInterval = 200
+                spdBtn.style.backgroundColor = `green`
+            } else if (spdBtn.id == `avg`) {
+                moveInterval = 150
+                spdBtn.style.backgroundColor = `goldenrod`
+            } else if (spdBtn.id == `fast`) {
+                moveInterval = 100
+                spdBtn.style.backgroundColor = `red`
+            } else if (spdBtn.id == `faster`) {
+                spdBtn.style.backgroundColor = `magenta`
+                moveInterval = 60
+            }
         }
-    }
-}
-defineEdges()
+    })
+})

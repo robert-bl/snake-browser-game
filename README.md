@@ -26,3 +26,47 @@ Stretch parameters:
 Proposed production timeline Trello board:
 https://trello.com/invite/b/zr47uykx/dc1318616b3f5a4ad7cfed655226991b/snake-browser-game
 
+
+
+
+Citations:
+
+https://www.freecodecamp.org/news/how-to-build-a-snake-game-in-javascript/ 
+
+Used for research on technique used for board generation, snake designtion, snake movement, and hit detection
+
+---
+
+https://stackoverflow.com/questions/5597060/detecting-arrow-key-presses-in-javascript
+
+Used for learning keystroke input
+
+---
+
+https://github.com/CodeExplainedRepo/Snake-JavaScript/blob/master/snake.js 
+
+.keyCode method for detecting key strokes
+
+---
+
+https://tpiros.dev/blog/contains-vs-includes/ 
+
+Information on when to use the .includes() method and when to use the .contains() method
+
+---
+
+https://stackoverflow.com/questions/70268854/why-the-interval-will-become-faster-and-faster-if-i-keep-setting-new-interval 
+
+Discovered .clearInterval method
+
+---
+
+https://stackoverflow.com/questions/44846614/trigger-css-animations-in-javascript 
+
+Animation help (did not end up implementing in final product)
+
+---
+
+https://www.w3schools.com/css/tryit.asp?filename=trycss3_animation2 
+
+Animation help (did not end up implementing in final product)

@@ -5,18 +5,6 @@ body {
     background-color: slategray;
 }
 
-/* @keyframes redHit {
-    0% {box-shadow: 0px 0px 10px maroon;}
-    100% {box-shadow: 0px 0px 100px maroon;}
-}
-
-@keyframes goldHit{
-    0% {box-shadow: 0px 0px 10px orangered;}
-    33% {box-shadow: 0px 0px 50px orangered;}
-    66% {box-shadow: 0px 0px 10px orangered;}
-    100% {box-shadow: 0px 0px 50px orangered;}
-} */
-
 #header {
     grid-column: span 2;
     margin-left: 50px;
@@ -162,11 +150,3 @@ footer {
 .deadSnake {
     box-shadow: 0px 0px 10px #eb2222;
 }
-
-/* .hitClassRed {
-    animation: redHit 1s;
-}
-
-.hitClassGold {
-    animation: goldHit 1s;
-} */

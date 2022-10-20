@@ -99,6 +99,28 @@
 speedButtons.forEach((spdBtn) => {
     console.log(spdBtn)
     spdBtn.addEventListener(`click`, () => {
+        if (gameActive === false) {
+            console.log(`ping`)
+            if (spdBtn.id == `slow`) {
+                moveInterval = 200
+            } else if (spdBtn.id == `avg`) {
+                moveInterval = 150
+            } else if (spdBtn.id == `fast`) {
+                moveInterval = 100
+            } else if (spdBtn.id == `faster`) {
+                moveInterval = 60
+            }
+            speedButtons.forEach((btn) => {
+                btn.style.backgroundColor = `gray`
+            })
+            spdBtn.style.backgroundColor = `green`
+        }
+    })
+})
+
+speedButtons.forEach((spdBtn) => {
+    console.log(spdBtn)
+    spdBtn.addEventListener(`click`, () => {
         speedButtons.forEach((btn) => {
             btn.style.backgroundColor = `gray`
         })
@@ -120,3 +142,9 @@ speedButtons.forEach((spdBtn) => {
         }
     })
 })
+
+
+
+// const runGame = () => {
+//     timedMovement = setInterval(moveFunction, moveInterval)
+// }

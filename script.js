@@ -1,34 +1,43 @@
+//Citations in ReadMe file
 
+//Board variables
 let board = document.querySelector(`#board`)
-let scoreBoard = document.querySelector(`#score`)
-let playButton = document.querySelector(`#play`)
 let snakePixels = document.querySelectorAll(`.snake`)
-let gameActive = false
-let resetButton = document.querySelector(`#reset`)
-let redApple = document.querySelector(`.apple`)
+
+//Interface variables
+let scoreBoard = document.querySelector(`#score`)
 let highScoreBoard = document.querySelector(`#highScore`)
+let score = 0
+let highScore = 0
+scoreBoard.innerText = `${score}`
+highScoreBoard.innerText = `${highScore}`
+let playButton = document.querySelector(`#play`)
+let resetButton = document.querySelector(`#reset`)
 let speedButtons = document.querySelectorAll(`.speed`)
 let slowButton = document.querySelector(`#slow`)
 let avgButton = document.querySelector(`#avg`)
 let fastButton = document.querySelector(`#fast`)
 let fasterButton = document.querySelector(`#faster`)
+
+//Game variables
+let gameActive = false
 let moveInterval = 150
 
 //generate board
-
 for (let i = 0; i < 900; i++) {
     let pixel = document.createElement(`div`)
     pixel.classList.add(`pixel`)
     board.appendChild(pixel)
 }
+
 let pixels = document.querySelectorAll(`.pixel`)
+
 
 //width variable used for determining vertical movement/collision
 let widthInterval = 30
-
-
-//detecting outer pixels
+//designate edge pixels
 let edges = []
+
 const defineEdges = () => {
     //top
     for (let i = 0; i < widthInterval; i++) {
@@ -52,13 +61,6 @@ const defineEdges = () => {
 }
 defineEdges()
 
-
-//define score and scoreboard
-let score = 0
-let highScore = 0
-scoreBoard.innerText = `${score}`
-highScoreBoard.innerText = `${highScore}`
-
 //set starting snake
 let snake = [435,434,433]
 let snakeSize = 3
@@ -73,9 +75,7 @@ const snakeDesignation = () => {
         }
     }
 }
-
 snakeDesignation()
-
 
 //apple generator
 const dropApple = () => {
@@ -88,26 +88,23 @@ const dropApple = () => {
     pixels[validDrops[Math.floor((Math.random() * validDrops.length))]].classList.add(`apple`)
     
 }
-
 dropApple()
-
 
 //obstacle generator
 const dropObst = () => {
     if (Math.random() < 0.25) {
-    let validDrops = []
-    let inPath = []
-    for (let i = 0; i < 3; i++) {
+        let validDrops = []
+        let inPath = []
+        for (let i = 1; i <= 3; i++) {
         inPath.push(snake[0] + (direction*i))
-        // console.log(inPath)
-    }
-    for (let i = 0; i < pixels.length; i++) {
-        if (pixels[i].classList.length === 1 && inPath.includes(i) === false && edges.includes(i) === false) {
-        validDrops.push(i)
         }
-    }
-    if (validDrops.length !== 0) {
-        pixels[validDrops[Math.floor((Math.random() * validDrops.length))]].classList.add(`obst`)
+        for (let i = 0; i < pixels.length; i++) {
+            if (pixels[i].classList.length === 1 && inPath.includes(i) === false && edges.includes(i) === false) {
+                validDrops.push(i)
+            }
+        }
+        if (validDrops.length !== 0) {
+            pixels[validDrops[Math.floor((Math.random() * validDrops.length))]].classList.add(`obst`)
         }
     }
 }
@@ -136,9 +133,9 @@ const detectConstriction = () => {
 }
 
 
+
 //move function
 const moveFunction = () => {
-    console.log(moveInterval)
     if (gameActive === true) {
         collisionDetector()
     }
@@ -146,161 +143,9 @@ const moveFunction = () => {
         snake.unshift(snake[0] + direction)
         while (snake.length > snakeSize) {snake.pop()}
         snakeDesignation()
-        // console.log(`snake is divs ${snake}`)
         detectConstriction()
     }
 }
-
-
-const killSnake = () => {
-    console.log(`kill snake`)
-    for (let i = 0; i < pixels.length; i++) {
-        if (snake.includes(i)) {
-            pixels[i].classList.add(`deadSnake`)
-        }
-    }
-}
-
-
-//keystroke detection
-document.addEventListener(`keydown`, function(event) {
-    if (gameActive === true) {
-    console.log(event.keyCode)
-    switch (event.keyCode) {
-        case 37 :
-            console.log(`left`)
-            if (snake[1] !== snake[0] - 1) {direction = -1}
-        break
-        case 38 :
-            console.log(`up`)
-            if (snake[1] !== snake[0] - widthInterval) {direction = -widthInterval}
-        break
-        case 39 :
-            console.log(`right`)
-            if (snake[1] !== snake[0] + 1) {direction = 1}
-        break
-        case 40 :
-            console.log(`down`)
-            if (snake[1] !== snake[0] + widthInterval) {direction = widthInterval}
-        break
-        case 87 :
-            console.log(`up`)
-            if (snake[1] !== snake[0] - widthInterval) {direction = -widthInterval}
-        break
-        case 65 :
-            console.log(`left`)
-            if (snake[1] !== snake[0] - 1) {direction = -1}
-        break
-        case 83 :
-            console.log(`down`)
-            if (snake[1] !== snake[0] + widthInterval) {direction = widthInterval}
-        break
-        case 68 :
-            console.log(`right`)
-            if (snake[1] !== snake[0] + 1) {direction = 1}
-        break
-    }
-}
-})
-
-
-//collision detection(walls)
-const collisionDetector = () => {
-//top hit
-    if (snake[0] < widthInterval && direction === -widthInterval) {
-        console.log(`wall hit top`)
-        killSnake()
-        logHighScore()
-        clearInterval(timedMovement)
-        return gameActive = false
-    }
-//bottom hit
-    if (snake[0] > ((widthInterval * widthInterval) - widthInterval) && direction === widthInterval) {
-        console.log(`wall hit bottom`)
-        killSnake()
-        logHighScore()
-        clearInterval(timedMovement)
-        return gameActive = false
-    }
-//left hit
-    if (snake[0] % widthInterval === 0 && direction === -1) {
-        console.log(`wall hit left`)
-        killSnake()
-        logHighScore()
-        clearInterval(timedMovement)
-        return gameActive = false
-    }
-//right hit
-    if ((snake[0]+1) % widthInterval === 0 && direction === 1) {
-        console.log(`wall hit right`)
-        killSnake()
-        logHighScore()
-        clearInterval(timedMovement)
-        return gameActive = false
-    }
-//snake hit
-    if ((pixels[snake[0] + direction].classList.contains(`snake`))) {
-        console.log(`snake hit`)
-        killSnake()
-        logHighScore()
-        clearInterval(timedMovement)
-        return gameActive = false
-    }
-//obstacle hit
-    if ((pixels[snake[0] + direction].classList.contains(`obst`))) {
-        console.log(`obstacle hit`)
-        clearInterval(timedMovement)
-        killSnake()
-        logHighScore()
-        return gameActive = false
-    }
-//apple hit
-    if ((pixels[snake[0] + direction].classList.contains(`apple`))) {
-        pixels[snake[0] + direction].classList.remove(`apple`)
-        // pixels[snake[0] + direction].classList.add(`hitClassRed`)
-        //give points
-        score += 10
-        //doubled with score definiths, consider simplifying
-        scoreBoard.innerText = `${score}`
-        snakeSize += 2
-        dropApple()
-        dropObst()
-    }
-//golden apple hit
-    if ((pixels[snake[0] + direction].classList.contains(`golden`))) {
-        pixels[snake[0] + direction].classList.remove(`golden`)
-        // pixels[snake[0] + direction].classList.add(`hitClassGold`)
-        score += 100
-        scoreBoard.innerText = `${score}`
-        snakeSize += 3
-    }
-}
-
-//Speed buttons
-speedButtons.forEach((spdBtn) => {
-    console.log(spdBtn)
-    spdBtn.addEventListener(`click`, () => {
-        speedButtons.forEach((btn) => {
-            btn.style.backgroundColor = `gray`
-        })
-        if (gameActive === false) {
-            if (spdBtn.id == `slow`) {
-                moveInterval = 200
-                spdBtn.style.backgroundColor = `green`
-            } else if (spdBtn.id == `avg`) {
-                moveInterval = 150
-                spdBtn.style.backgroundColor = `goldenrod`
-            } else if (spdBtn.id == `fast`) {
-                moveInterval = 100
-                spdBtn.style.backgroundColor = `red`
-            } else if (spdBtn.id == `faster`) {
-                spdBtn.style.backgroundColor = `magenta`
-                moveInterval = 60
-            }
-        }
-    })
-})
-
 
 //Log high score
 const logHighScore = () => {
@@ -324,6 +169,126 @@ const logHighScore = () => {
     highScoreBoard.innerText = `${highScore}`
 }
 
+//end round when snake dies
+const killSnake = () => {
+    for (let i = 0; i < pixels.length; i++) {
+        if (snake.includes(i)) {
+            pixels[i].classList.add(`deadSnake`)
+        }
+    }
+    logHighScore()
+    clearInterval(timedMovement)
+    return gameActive = false
+}
+
+//keystroke detection
+document.addEventListener(`keydown`, function(event) {
+    if (gameActive === true) {
+        switch (event.keyCode) {
+            case 37 :
+                //left arrow
+                if (snake[1] !== snake[0] - 1) {direction = -1}
+            break
+            case 38 :
+                //up arrow
+                if (snake[1] !== snake[0] - widthInterval) {direction = -widthInterval}
+            break
+            case 39 :
+                //right arrow
+                if (snake[1] !== snake[0] + 1) {direction = 1}
+            break
+            case 40 :
+                //down arrow
+                if (snake[1] !== snake[0] + widthInterval) {direction = widthInterval}
+            break
+            case 87 :
+                //w
+                if (snake[1] !== snake[0] - widthInterval) {direction = -widthInterval}
+            break
+            case 65 :
+                //a
+                if (snake[1] !== snake[0] - 1) {direction = -1}
+            break
+            case 83 :
+                //s
+                if (snake[1] !== snake[0] + widthInterval) {direction = widthInterval}
+            break
+            case 68 :
+                //d
+                if (snake[1] !== snake[0] + 1) {direction = 1}
+            break
+        }
+    }
+})
+
+//collision detection (walls, snake, obstacles, apples)
+const collisionDetector = () => {
+    if (snake[0] < widthInterval && direction === -widthInterval) {
+        //top hit
+        killSnake()
+    }
+    if (snake[0] > ((widthInterval * widthInterval) - widthInterval) && direction === widthInterval) {
+        //bottom hit
+        killSnake()
+    }
+    if (snake[0] % widthInterval === 0 && direction === -1) {
+        //left hit
+        killSnake()
+    }
+    if ((snake[0]+1) % widthInterval === 0 && direction === 1) {
+        //right hit
+        killSnake()
+    }
+    if ((pixels[snake[0] + direction].classList.contains(`snake`))) {
+        //snake hit
+        killSnake()
+    }
+    if ((pixels[snake[0] + direction].classList.contains(`obst`))) {
+        //obstacle hit
+        killSnake()
+    }
+    if ((pixels[snake[0] + direction].classList.contains(`apple`))) {
+        //apple hit
+        pixels[snake[0] + direction].classList.remove(`apple`)
+        score += 10
+        scoreBoard.innerText = `${score}`
+        snakeSize += 2
+        dropApple()
+        dropObst()
+    }
+    if ((pixels[snake[0] + direction].classList.contains(`golden`))) {
+        //golden apple hit
+        pixels[snake[0] + direction].classList.remove(`golden`)
+        score += 100
+        scoreBoard.innerText = `${score}`
+        snakeSize += 3
+    }
+}
+
+//Speed buttons
+speedButtons.forEach((spdBtn) => {
+    spdBtn.addEventListener(`click`, () => {
+        if (gameActive === false) {
+            speedButtons.forEach((btn) => {
+                btn.style.backgroundColor = `gray`
+            })
+            if (spdBtn.id === `slow`) {
+                moveInterval = 200
+                spdBtn.style.backgroundColor = `green`
+            } else if (spdBtn.id === `avg`) {
+                moveInterval = 150
+                spdBtn.style.backgroundColor = `goldenrod`
+            } else if (spdBtn.id === `fast`) {
+                moveInterval = 100
+                spdBtn.style.backgroundColor = `red`
+            } else if (spdBtn.id === `faster`) {
+                spdBtn.style.backgroundColor = `magenta`
+                moveInterval = 60
+            }
+        }
+    })
+})
+
 //Define timed movement interval
 let timedMovement = setInterval(moveFunction, moveInterval)
 clearInterval(timedMovement)
@@ -335,7 +300,6 @@ playButton.addEventListener(`click`, () => {
     playButton.style.backgroundColor = `gray`
     resetButton.style.backgroundColor = `red`
     timedMovement = setInterval(moveFunction, moveInterval)
-    // runGame()
     }
 })
 
@@ -348,16 +312,11 @@ resetButton.addEventListener(`click`, () => {
     gameActive = false
     snake = [435,434,433]
     snakeSize = 3
-    snakeDesignation()
     direction = 1
+    snakeDesignation()
     dropApple()
-    // if (score > highScore) {
-    //     highScore = score
-    // }
-    // highScoreBoard.innerText = `${highScore}`
     score = 0
     scoreBoard.innerText = `${score}`
     resetButton.style.backgroundColor = `gray`
     playButton.style.backgroundColor = `green`
 })
-
